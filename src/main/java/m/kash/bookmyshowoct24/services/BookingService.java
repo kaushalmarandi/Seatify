@@ -3,6 +3,7 @@ package m.kash.bookmyshowoct24.services;
 import m.kash.bookmyshowoct24.exceptions.ShowNotFoundException;
 import m.kash.bookmyshowoct24.exceptions.UserNotFoundException;
 import m.kash.bookmyshowoct24.models.*;
+import m.kash.bookmyshowoct24.repositories.BookingRepository;
 import m.kash.bookmyshowoct24.repositories.ShowRepository;
 import m.kash.bookmyshowoct24.repositories.ShowSeatRepository;
 import m.kash.bookmyshowoct24.repositories.UserRepository;
@@ -20,14 +21,17 @@ public class BookingService {
     private ShowRepository showRepository;
     private ShowSeatRepository showSeatRepository;
     private PriceCalculatorService priceCalculatorService;
+    private BookingRepository bookingRepository;
     public BookingService(UserRepository userRepository,
                           ShowRepository showRepository,
                           ShowSeatRepository showSeatRepository,
-                          PriceCalculatorService priceCalculatorService){
+                          PriceCalculatorService priceCalculatorService,
+                          BookingRepository bookingRepository){
         this.userRepository=userRepository;
         this.showRepository=showRepository;
         this.showSeatRepository=showSeatRepository;
         this.priceCalculatorService=priceCalculatorService;
+        this.bookingRepository=bookingRepository;
     }
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public Booking bookMovie(Long userId, Long showId, List<Long> showSeatIds) throws UserNotFoundException, ShowNotFoundException {
@@ -73,12 +77,14 @@ public class BookingService {
         }
 
         //Create the Booking and move to the payment page.
+        Booking savedBooking = null;
         Booking booking=new Booking();
         booking.setUser(user);
         booking.setShowSeats(showSeats);
         booking.setBookingStatus(BookingStatus.PENDING);
         booking.setCreatedAt(new Date());
         booking.setAmount(priceCalculatorService.calculatePrice(showSeats, show));
+        savedBooking=bookingRepository.save(booking);
         return booking;
     }
 }
