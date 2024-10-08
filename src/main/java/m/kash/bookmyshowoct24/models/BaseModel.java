@@ -22,7 +22,7 @@ public class BaseModel {
     private Date createdAt;
 
     @LastModifiedDate
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedAt;
 
 }

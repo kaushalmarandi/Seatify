@@ -23,7 +23,7 @@ public class BookMyShowOct24Application implements CommandLineRunner {
     public void run(String... args) throws Exception {
         SignUpRequestDto requestDto= new SignUpRequestDto();
         requestDto.setName("Kaushal");
-        requestDto.setEmail("kaushal@email.com");
+        requestDto.setEmail("kaushal2@email.com");
         requestDto.setPassword("mypassword");
 
         SignUpResponseDto responseDto = userController.signUp(requestDto);
