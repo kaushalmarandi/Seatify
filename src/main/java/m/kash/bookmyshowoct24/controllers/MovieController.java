@@ -1,7 +1,8 @@
 package m.kash.bookmyshowoct24.controllers;
 
-import m.kash.bookmyshowoct24.dtos.UserSignUpRequestDto;
-import m.kash.bookmyshowoct24.services.UserSignUpService;
+
+import m.kash.bookmyshowoct24.dtos.MovieEntryDto;
+import m.kash.bookmyshowoct24.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,19 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/movie")
+public class MovieController {
 
     @Autowired
-    private UserSignUpService userSignUpService;
+    private MovieService movieService;
 
     @PostMapping("/addNew")
-    public ResponseEntity<String> userSignUp(@RequestBody UserSignUpRequestDto userSignUpRequestDto){
-        try {
-            String result = userSignUpService.signUp(userSignUpRequestDto);
+    public ResponseEntity<String> addMovie(@RequestBody MovieEntryDto movieEntryDto){
+        try{
+            String result = movieService.addMovie(movieEntryDto);
             return new ResponseEntity<>(result, HttpStatus.CREATED);
-        } catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }
+

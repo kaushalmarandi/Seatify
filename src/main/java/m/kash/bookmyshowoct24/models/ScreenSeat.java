@@ -1,23 +1,25 @@
 package m.kash.bookmyshowoct24.models;
-import jakarta.persistence.*;
-import lombok.Data;
-import m.kash.bookmyshowoct24.enums.SeatStatus;
-import m.kash.bookmyshowoct24.enums.SeatType;
 
-@Entity
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import m.kash.bookmyshowoct24.enums.SeatType;
 @Data
-@Table(name = "SHOW_SEATS")
-public class ShowSeat extends BaseModel{
+@Entity
+@Table(name = "Screen_Seats")
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class ScreenSeat extends BaseModel{
 
     private String seatNo;
 
     @Enumerated(value = EnumType.STRING)
     private SeatType seatType;
 
-    private int price;
-    @Enumerated(value = EnumType.STRING)
-    private SeatStatus seatStatus;
-
     @ManyToOne
-    private Show show;
+    private Screen screen;
 }
+

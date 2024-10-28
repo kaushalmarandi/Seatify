@@ -1,16 +1,33 @@
 package m.kash.bookmyshowoct24.models;
+import jakarta.persistence.*;
+import lombok.*;
+import m.kash.bookmyshowoct24.enums.Genre;
+import m.kash.bookmyshowoct24.enums.Language;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import lombok.Getter;
-import lombok.Setter;
-
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-@Getter
-@Setter
+
+
 @Entity
+@Table(name = "MOVIES")
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Movie extends BaseModel{
+
+    @Column(nullable = false)
     private String name;
-    @ManyToMany
-    private List<Actors> actors;
+
+    @Enumerated(value = EnumType.STRING)
+    private Genre genre;
+
+    @Enumerated(value = EnumType.STRING)
+    private Language language;
+
+    private Date releaseDate;
+
+    @OneToMany
+    private List<Show> shows = new ArrayList<>();
 }

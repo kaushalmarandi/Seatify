@@ -1,12 +1,15 @@
 package m.kash.bookmyshowoct24.models;
 
 import jakarta.persistence.Entity;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.Table;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @Entity
+@Builder
+@Table(name = "USERS")
+@AllArgsConstructor
+@NoArgsConstructor
 public class User extends BaseModel{
     private String name;
     private String email;
