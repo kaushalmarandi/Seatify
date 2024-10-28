@@ -3,6 +3,7 @@ package m.kash.bookmyshowoct24.services;
 import m.kash.bookmyshowoct24.dtos.TicketEntryDto;
 import m.kash.bookmyshowoct24.dtos.TicketResponseDto;
 import m.kash.bookmyshowoct24.enums.SeatStatus;
+import m.kash.bookmyshowoct24.enums.SeatType;
 import m.kash.bookmyshowoct24.exceptions.RequestedSeatsUnavailableException;
 import m.kash.bookmyshowoct24.exceptions.ShowDoesNotExistException;
 import m.kash.bookmyshowoct24.exceptions.UserDoesNotExistException;
@@ -47,7 +48,7 @@ public class TicketBookingService {
 
 
 
-   // @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public TicketResponseDto ticketBooking(TicketEntryDto ticketEntryDto)throws RequestedSeatsUnavailableException, UserDoesNotExistException, ShowDoesNotExistException {
         //check if the user exists
         Optional<User> userOpt = userRepository.findByEmail(ticketEntryDto.getUserEmail());
@@ -67,13 +68,13 @@ public class TicketBookingService {
         System.out.println(show);
 
         //check if requested seats are available
-        Boolean isSeatAvailable = isSeatAvailable(show.getShowSeats(), ticketEntryDto.getRequestSeats());
+        Boolean isSeatAvailable = isSeatAvailable(show.getShowSeats(), ticketEntryDto.getRequestSeats(), ticketEntryDto.getSeatType());
         if (!isSeatAvailable){
             throw new RequestedSeatsUnavailableException();
         }
 
         //get total price
-        int getPriceAndAssignSeats = getPriceAndAssignSeats(show.getShowSeats(), ticketEntryDto.getRequestSeats());
+        int getPriceAndAssignSeats = getPriceAndAssignSeats(show.getShowSeats(), ticketEntryDto.getRequestSeats(), ticketEntryDto.getSeatType());
         System.out.println(getPriceAndAssignSeats);
 
         //change list to string
@@ -84,6 +85,7 @@ public class TicketBookingService {
         Ticket ticket = new Ticket();
         ticket.setTotalTicketsPrice(getPriceAndAssignSeats);
         ticket.setBookedSeats(seats);
+        ticket.setSeatType(ticketEntryDto.getSeatType());
         ticket.setUser(user);
         ticket.setShow(show);
 
@@ -121,10 +123,10 @@ public class TicketBookingService {
         javaMailSender.send(message);
     }
 
-    private Boolean isSeatAvailable(List<ShowSeat> showSeatList, List<String> requestSeats){
+    private Boolean isSeatAvailable(List<ShowSeat> showSeatList, List<String> requestSeats, SeatType seatType){
         for (ShowSeat showSeat: showSeatList){
             String seatNo = showSeat.getSeatNo();
-            if (requestSeats.contains(seatNo)){
+            if (requestSeats.contains(seatNo) && showSeat.getSeatType().equals(seatType)){
                 if (showSeat.getSeatStatus().equals(SeatStatus.BOOKED)){
                     return false;
                 }
@@ -134,10 +136,10 @@ public class TicketBookingService {
 
     }
 
-    private int getPriceAndAssignSeats(List<ShowSeat> showSeatList, List<String> requestSeats){
+    private int getPriceAndAssignSeats(List<ShowSeat> showSeatList, List<String> requestSeats, SeatType seatType){
         int totalAmount = 0;
         for (ShowSeat showSeat: showSeatList){
-            if (requestSeats.contains(showSeat.getSeatNo())){
+            if (requestSeats.contains(showSeat.getSeatNo()) && showSeat.getSeatType().equals(seatType)){
                 totalAmount += showSeat.getPrice();
                 showSeat.setSeatStatus(SeatStatus.BOOKED);
             }

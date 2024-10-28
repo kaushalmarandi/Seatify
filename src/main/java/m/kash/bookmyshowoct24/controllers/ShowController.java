@@ -7,12 +7,10 @@ import m.kash.bookmyshowoct24.services.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -41,10 +39,13 @@ public class ShowController {
         }
     }
 
-    public ResponseEntity<List<Time>> showTimingsOnDate(@RequestBody ShowTimingsDto showTimingsDto){
+    @GetMapping("/showTimingsOnDate")
+    @ResponseBody
+    public ResponseEntity<List<Time>>  showTimingsOnDate(@RequestBody ShowTimingsDto showTimingsDto){
         try{
-            List<Time> result = showService.showTimingsOnDate(showTimingsDto);
-            return new ResponseEntity<>(result, HttpStatus.FOUND);
+            List<Time> result = new ArrayList<>();
+                  result.addAll(showService.showTimingsOnDate(showTimingsDto));
+            return new ResponseEntity<>(result, HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }

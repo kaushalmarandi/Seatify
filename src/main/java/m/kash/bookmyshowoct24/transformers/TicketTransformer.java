@@ -15,6 +15,7 @@ public class TicketTransformer {
                 .date((Date) show.getShowDate())
                 .movieName(show.getMovie().getName())
                 .time(show.getStartTime())
+                .seatType(ticket.getSeatType())
                 .Screen(show.getScreen().getName())
                 .totalPrice(ticket.getTotalTicketsPrice())
                 .build();

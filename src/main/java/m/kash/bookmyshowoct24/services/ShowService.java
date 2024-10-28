@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -96,7 +98,7 @@ public class ShowService {
     }
 
     public List<Time> showTimingsOnDate(ShowTimingsDto showTimingsDto){
-        Date date = showTimingsDto.getDate();
+        LocalDate date = showTimingsDto.getDate();
         int movieId = showTimingsDto.getMovieId();
         return showRepository.getShowTimingsOnDate(date, movieId);
     }

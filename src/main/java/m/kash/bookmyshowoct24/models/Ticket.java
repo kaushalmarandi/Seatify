@@ -2,6 +2,7 @@ package m.kash.bookmyshowoct24.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import m.kash.bookmyshowoct24.enums.SeatType;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.util.Date;
@@ -16,6 +17,8 @@ import java.util.Date;
 public class Ticket extends BaseModel{
     private int totalTicketsPrice;
     private String bookedSeats;
+
+    private SeatType seatType;
 
     @CreatedDate
     @Temporal(TemporalType.DATE)
