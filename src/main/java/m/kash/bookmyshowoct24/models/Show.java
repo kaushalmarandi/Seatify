@@ -1,5 +1,6 @@
 package m.kash.bookmyshowoct24.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,5 +28,6 @@ public class Show extends BaseModel{
     @Enumerated(EnumType.ORDINAL)
 
     @OneToMany(mappedBy = "show", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ShowSeat> showSeats = new ArrayList<>();
 }

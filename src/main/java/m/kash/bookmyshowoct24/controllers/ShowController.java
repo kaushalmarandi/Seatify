@@ -1,8 +1,10 @@
 package m.kash.bookmyshowoct24.controllers;
 
+import m.kash.bookmyshowoct24.dtos.AllShowsOfMovieRequestDto;
 import m.kash.bookmyshowoct24.dtos.ShowEntryDto;
 import m.kash.bookmyshowoct24.dtos.ShowSeatEntryDto;
 import m.kash.bookmyshowoct24.dtos.ShowTimingsDto;
+import m.kash.bookmyshowoct24.models.Show;
 import m.kash.bookmyshowoct24.services.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,6 +47,18 @@ public class ShowController {
         try{
             List<Time> result = new ArrayList<>();
                   result.addAll(showService.showTimingsOnDate(showTimingsDto));
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @GetMapping("/getAllShowsOfMovie")
+    public ResponseEntity<List<List<Show>>> allShowsOfMovie(@RequestBody AllShowsOfMovieRequestDto allShowsOfMovieRequestDto){
+        try{
+            List<List<Show>> result = new ArrayList<>();
+            result=showService.allShowOfMovie(allShowsOfMovieRequestDto);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

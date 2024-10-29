@@ -1,5 +1,6 @@
 package m.kash.bookmyshowoct24.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,9 +26,11 @@ public class Screen extends BaseModel{
     private ScreenType screenType;
 
     @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ScreenSeat> screenSeats = new ArrayList<>();
 
     @OneToMany
+    @JsonIgnore
     private List<Show> shows = new ArrayList<>();
 
 

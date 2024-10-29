@@ -1,8 +1,6 @@
 package m.kash.bookmyshowoct24.services;
 
-import m.kash.bookmyshowoct24.dtos.ShowEntryDto;
-import m.kash.bookmyshowoct24.dtos.ShowSeatEntryDto;
-import m.kash.bookmyshowoct24.dtos.ShowTimingsDto;
+import m.kash.bookmyshowoct24.dtos.*;
 import m.kash.bookmyshowoct24.enums.SeatStatus;
 import m.kash.bookmyshowoct24.enums.SeatType;
 import m.kash.bookmyshowoct24.exceptions.MovieDoesNotExistException;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,6 +98,13 @@ public class ShowService {
         LocalDate date = showTimingsDto.getDate();
         int movieId = showTimingsDto.getMovieId();
         return showRepository.getShowTimingsOnDate(date, movieId);
+    }
+
+    public  List<List<Show>> allShowOfMovie(AllShowsOfMovieRequestDto allShowsOfMovieRequestDto){
+        int movieId=allShowsOfMovieRequestDto.getMovieId();
+        List<List<Show>> shows = new ArrayList<>();
+        shows.addAll(showRepository.getAllShowsOfMovie(movieId));
+        return shows;
     }
 
 }

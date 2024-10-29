@@ -1,4 +1,5 @@
 package m.kash.bookmyshowoct24.models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import m.kash.bookmyshowoct24.enums.Genre;
@@ -29,5 +30,6 @@ public class Movie extends BaseModel{
     private Date releaseDate;
 
     @OneToMany
+    @JsonIgnore
     private List<Show> shows = new ArrayList<>();
 }

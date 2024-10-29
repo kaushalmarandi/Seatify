@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Time;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +19,7 @@ public interface ShowRepository extends JpaRepository<Show, Long> {
     List<Time> getShowTimingsOnDate(@Param("date") LocalDate date, @Param("movieId") Integer movieId);
 
     @Query(value = "select * from shows where movie_id = :movieId", nativeQuery = true)
-    List<Show> getAllShowsOfMovie(@Param("movieId") Integer movieId);
+    Collection<? extends List<Show>> getAllShowsOfMovie(@Param("movieId") Integer movieId);
 }
 
 
