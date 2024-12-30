@@ -1,6 +1,6 @@
-# 🎟️ BookMyShow App Clone, APIs Spring Boot Project
+# 🎟️ Seatify, APIs Spring Boot Project
 
-A fully functional clone of the popular movie ticket booking app, **BookMyShow**. This project replicates the core features of BookMyShow, allowing to add movie shows in theatre, user sign-up, check showtimes, book tickets, and the tickets are automatically sent to the user's email address.
+A fully functional server side application for the private movie theatres to manage shows, tickets and users. This project replicates the core features of BookMyShow, allowing to add movie shows in theatre, user sign-up, check showtimes, book tickets, and the tickets are automatically sent to the user's email address.
 To test the Application, we need to make API calls using Postman.
 
 ## 🚀 Features
