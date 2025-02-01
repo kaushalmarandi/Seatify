@@ -1,6 +1,7 @@
 # 🎟️ Seatify, APIs Spring Boot Project
 
-A fully functional server side application for the private movie theatres to manage shows, tickets and users. This project replicates the core features of BookMyShow, allowing to add movie shows in theatre, user sign-up, check showtimes, book tickets, and the tickets are automatically sent to the user's email address.
+A fully functional server side application for the private movie theatres to manage movies, shows, tickets and users. This project provides the core features of a movie booking service, allowing to add movie shows in theatre, user sign-up, check showtimes, book tickets, and the tickets are automatically sent to the user's email address.
+The password is stored in encrypted format in the database using Bcryptencoder. 
 To test the Application, we need to make API calls using Postman.
 
 ## 🚀 Features
@@ -24,8 +25,8 @@ To test the Application, we need to make API calls using Postman.
 
 ## ✅Getting Started
  To set up the project on your local machine, follow these steps:
- - 1. Clone the repository:    ```https://github.com/kaushalmarandi/BookMyShow_2024```
-   2. Navigate to the directory: ```cd BookMyShow_2024```
+ - 1. Clone the repository:    ```https://github.com/kaushalmarandi/Seatify```
+   2. Navigate to the directory: ```cd Seatify```
    3. Configure the database settings in ```application.properties``` file.
    4. Build the project using Maven: ```mvn clean install```
    5. Run the application: ```mvn spring-boot:run```
@@ -115,9 +116,9 @@ This project uses MySQL as the database. Follow these steps to set up the databa
   - The input needs to be in the following format.
      ```json  {
      {
-        "name" : "Kaushal"
-        "email" : "iamkash009@gmail.com"
-        "password" : "k@123"
+        "name" : "user"
+        "email" : "user@email.com"
+        "password" : "passsword"
      }
 ### 5. Ticket Booking Service.
 - Email where the ticket is to be receieved should be entered, along with show and seat details.
@@ -129,7 +130,7 @@ This project uses MySQL as the database. Follow these steps to set up the databa
    ```json
    {
         "showId" : 1,
-        "userEmail" : "iamkash009@gmail.com",
+        "userEmail" : "user@email.com",
         "seatType"  : "GOLD",
         "requestSeats" : ["A1", "A2"]
    }
@@ -148,7 +149,7 @@ This project uses MySQL as the database. Follow these steps to set up the databa
 - **Get all shows of a movie**
 - - make a get api call on
 
-        localhost:8080/show/allShowsOfMovie
+        localhost:8080/show/getAllShowsOfMovie
   - with the input as
     ```json
     {
